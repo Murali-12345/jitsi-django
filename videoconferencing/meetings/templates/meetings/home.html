@@ -1,0 +1,16 @@
+<!-- templates/meetings/home.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+</head>
+<body>
+    <h1>Jitsi Meet Integration</h1>
+    <a href="{% url 'create_meeting' %}">Create Meeting</a>
+    <form method="post" action="{% url 'join_meeting' %}">
+        {% csrf_token %}
+        <input type="text" name="room_name" placeholder="Enter Room Name" required>
+        <button type="submit">Join Meeting</button>
+    </form>
+</body>
+</html>

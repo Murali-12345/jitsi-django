@@ -1,0 +1,21 @@
+<!-- templates/meetings/meeting.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Meeting</title>
+</head>
+<body>
+    <div id="meet"></div>
+    <script src="https://meet.jit.si/external_api.js"></script>
+    <script>
+        const domain = 'meet.jit.si';
+        const options = {
+            roomName: '{{ room_name }}',
+            width: 700,
+            height: 700,
+            parentNode: document.querySelector('#meet')
+        };
+        const api = new JitsiMeetExternalAPI(domain, options);
+    </script>
+</body>
+</html>
