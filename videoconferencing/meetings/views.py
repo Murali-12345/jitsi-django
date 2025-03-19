@@ -112,7 +112,9 @@ class CreateMeetingView(View):
 
     def get(self, request, *args, **kwargs):
         """Redirect to home if accessed via GET."""
-        return redirect('home')
+        # return redirect('home')
+        room_name = uuid.uuid4().hex  # Still available for POST if needed
+        return redirect('meeting', room_name=room_name)
 
 @method_decorator(csrf_exempt, name='dispatch')
 class JoinMeetingView(View):
@@ -136,10 +138,14 @@ class MeetingView(View):
     template_name = '/Volumes/Murali ext 1/jitsi-django/videoconferencing/meetings/templates/meetings/meeting.html'
 
     # Exempt from X-Frame-Options to allow embedding Jitsi Meet iframe
-    @method_decorator(lambda x: xframe_options_exempt(x))
-    def dispatch(self, *args, **kwargs):
-        return super().dispatch(*args, **kwargs)
+    # @method_decorator(lambda x: xframe_options_exempt(x))
+    # def dispatch(self, *args, **kwargs):
+    #     return super().dispatch(*args, **kwargs)
 
+    # def get(self, request, room_name, *args, **kwargs):
+    #     """Render the meeting template with the room_name."""
+    #     return render(request, self.template_name, {'room_name': room_name})
+
+    @xframe_options_exempt
     def get(self, request, room_name, *args, **kwargs):
-        """Render the meeting template with the room_name."""
-        return render(request, self.template_name, {'room_name': room_name})
+        return render(request, 'meetings/meeting.html', {'room_name': room_name})
